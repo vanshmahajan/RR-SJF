@@ -1,0 +1,58 @@
+#include<stdio.h> 
+
+int main() 
+{
+  int waiting_time=0,turnaround_time=0,arr_time[10],burst_time[10],rem_time[10];
+   int i,j,num,k,remain,flag=0,tq; 
+  printf(" enter number:\t "); 
+  scanf("%d",&num); 
+  remain=num; 
+  for(i=0;i<num;i++) 
+  { 
+    scanf("%d",&arr_time[i]); 
+    scanf("%d",&burst_time[i]); 
+    rem_time[i]=burst_time[i]; 
+  }
+  printf(" enter tq:\t"); 
+  scanf("%d",&tq); 
+  if(tq>10)
+  {
+  	printf(" ** ENTER VALID TIME QUANTUM ** ");
+  }
+   else
+   {
+  printf("\n\nProcess\t Turnaround Time Waiting Time\n\n"); 
+  for(k=0,i=0;remain!=0;) 
+  { 
+    if(rem_time[i]<=tq && rem_time[i]>0) 
+    { 
+      k+=rem_time[i]; 
+      rem_time[i]=0; 
+      flag=1; 
+    } 
+    else if(rem_time[i]>0) 
+    { 
+      rem_time[i]-=tq; 
+      k+=tq; 
+    } 
+    if(rem_time[i]==0 && flag==1) 
+    { 
+      remain--; 
+      printf("P[%d]\t \t%d\t \t%d\n",i+1,k-arr_time[i],k-arr_time[i]-burst_time[i]); 
+      waiting_time+=k-arr_time[i]-burst_time[i]; 
+      turnaround_time+=k-arr_time[i]; 
+      flag=0; 
+    } 
+    if(i==num-1) 
+      i=0; 
+    else if(arr_time[i+1]<=k) 
+      i++; 
+    else 
+      i=0; 
+  } 
+}
+  printf("\nAverage Waiting Time= %f\n",waiting_time*1.0/num); 
+  printf("Avg Turnaround Time = %f",turnaround_time*1.0/num); 
+return 0;
+}
+
