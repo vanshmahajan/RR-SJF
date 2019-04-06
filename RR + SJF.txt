@@ -2,7 +2,8 @@
 
 int main() 
 {
-  int waiting_time=0,turnaround_time=0,arr_time[10],burst_time[10],rem_time[10];
+  int arr_time[10],burst_time[10],rem_time[10];
+   float waiting_time=0,turnaround_time=0;
    int i,j,num,k,remain,flag=0,tq; 
   printf(" ENTER NUMBER OF PROCESS :\t "); 
   scanf("%d",&num); 
@@ -11,14 +12,21 @@ int main()
   { 
     printf("ENTER ARRIVAL TIME AND BURST TIME FOR PROCESS  PROCESS NUMBER %d :",i+1);
     scanf("%d",&arr_time[i]); 
+    if(arr_time[i]<=3)
+    {
+    	
+    	printf("  \n  ENTER VALID ARRIVAL TIME FOR PROCESS NUMBER ->  %d  \n  ",i+1);
+	}
+    
+
     scanf("%d",&burst_time[i]); 
     rem_time[i]=burst_time[i]; 
   }
-  printf(" ENTER TIME QUANTUM :\t"); 
+  printf("  \n  ENTER TIME QUANTUM :\t"); 
   scanf("%d",&tq); 
   if(tq>10)
   {
-  	printf(" ** ENTER VALID TIME QUANTUM ** ");
+  	printf(" \n \t ** ENTER VALID TIME QUANTUM ** ");
   }
    else
    {
@@ -53,8 +61,10 @@ int main()
       i=0; 
   } 
 }
-  printf("\nAVERAGE WAITING TIME IS = %f\n",waiting_time*1.0/num); 
-  printf("AVERAGE TURNAROUND TIME IS = %f",turnaround_time*1.0/num); 
+    waiting_time=waiting_time*1.0/num;
+    turnaround_time=turnaround_time*1.0/num;
+  printf("\n AVERAGE WAITING TIME  = %f \n",waiting_time); 
+  printf(" AVERAGE TURNAROUND TIME = %f",turnaround_time); 
 return 0;
 }
 
