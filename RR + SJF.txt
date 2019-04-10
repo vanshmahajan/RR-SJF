@@ -2,36 +2,54 @@
 
 int main() 
 {
-  int arr_time[10],burst_time[10],rem_time[10];
+   int arr_time[10],burst_time[10],rem_time[10];
    float waiting_time=0,turnaround_time=0;
-   int i,j,num,k,remain,flag=0,tq; 
-  printf(" ENTER NUMBER OF PROCESS :\t "); 
-  scanf("%d",&num); 
+   int i,j,num,k,remain,flag=0,tq,a,b,temp; 
+  printf(" 	ENTER NUMBER OF PROCESSES :\t "); 
+  scanf("%d",&num);                         // num -> number of processes
   remain=num; 
+  printf(" \n\t CPU IS IDEAL FROM 0 TO 3 SECONDS  \n \n");
+  printf(" \t ENTER ARRIVAL TIME STARTING FROM 4 SECONDS \n \n \n");
   for(i=0;i<num;i++) 
   { 
-    printf("ENTER ARRIVAL TIME AND BURST TIME FOR PROCESS  PROCESS NUMBER %d :",i+1);
-    scanf("%d",&arr_time[i]); 
-    if(arr_time[i]<=3)
+    
+    printf(" \n  ENTER ARRIVAL TIME AND BURST TIME FOR PROCESS  PROCESS NUMBER %d :",i+1);              // i -> count 
+    	scanf("%d ",&arr_time[i]); 
+	if(arr_time[i]<=3)
     {
     	
     	printf("  \n  ENTER VALID ARRIVAL TIME FOR PROCESS NUMBER ->  %d  \n  ",i+1);
 	}
     
+//	scanf("%d ",&arr_time[i]); 
 
     scanf("%d",&burst_time[i]); 
     rem_time[i]=burst_time[i]; 
   }
-  printf("  \n  ENTER TIME QUANTUM :\t"); 
-  scanf("%d",&tq); 
+  for (a=0;a<num;a++)
+  {
+  	for(b=a+1;b<num;b++)
+  	{
+  		if(arr_time[a]>arr_time[b])
+  		{
+  			temp=arr_time[a];
+  			arr_time[a]=arr_time[b];
+  			arr_time[b]=temp;
+		  }
+  	
+	  }
+	  printf("  \n sorted arrival time : %d ",arr_time[a]);
+  }
+  printf(" \n \n ENTER TIME QUANTUM :\t"); 
+  scanf("%d",&tq);                           // tq -> time quantum 
   if(tq>10)
   {
-  	printf(" \n \t ** ENTER VALID TIME QUANTUM ** ");
+  	printf(" \n \t ** ENTER VALID TIME QUANTUM ** \n\n");
   }
    else
    {
-  printf("\n\nProcess\t | Turnaround | Time Waiting Time\n\n"); 
-  for(k=0,i=0;remain!=0;) 
+  printf("\n\nProcess\t | Turnaround Time | Waiting Time\n\n"); 
+  for(k=0,i=0;remain!=0;)                    //  K -> time      i -> count
   { 
     if(rem_time[i]<=tq && rem_time[i]>0) 
     { 
@@ -48,16 +66,15 @@ int main()
     { 
       remain--; 
       printf("P[%d]\t | \t%d\t | \t%d\n",i+1,k-arr_time[i],k-arr_time[i]-burst_time[i]); 
-       turnaround_time+=k-arr_time[i]; 
-      waiting_time+=k-arr_time[i]-burst_time[i];
-     
+      turnaround_time+=k-arr_time[i];
+	  waiting_time+=k-arr_time[i]-burst_time[i]; 
       flag=0; 
     } 
-    if(i==num-1) 
-      i=0; 
-    else if(arr_time[i+1]<=k) 
+    if(i==num-1)             
+	   i=0;                   
+    else if(arr_time[i+1]<=k)            // arr_time -> arrival time 
       i++; 
-    else 
+    else   
       i=0; 
   } 
 }
@@ -67,5 +84,4 @@ int main()
   printf(" AVERAGE TURNAROUND TIME = %f",turnaround_time); 
 return 0;
 }
-
 
